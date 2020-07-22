@@ -4,50 +4,46 @@ class Player {
     this.move();
   }
 
-  // logica de miscare
+
   move() {
     document.addEventListener('keyup', (event) => {
-      const oldTop = parseInt(this.div.style.top);
-      const oldLeft = parseInt(this.div.style.left);
-      const stop = this.playerIsOutsideOfContainer();
+      const gameContainer = document.querySelector(".map");
+      const key = event.key;
+      const left = this.div.offsetLeft;
+      const top = this.div.offsetTop;
+      const step = 10;
 
-      switch (event.keyCode) {
-
-        case 40: //arrow down
-          if (stop === false) {
-            this.div.style.top = `${oldTop + 20}px`;
-            // console.log('arrow down', this.div.style.top);
+      switch (key) {
+        case "ArrowUp":
+          event.preventDefault();
+          if (this.div.getBoundingClientRect().top - step < gameContainer.getBoundingClientRect().top) {
+            return;
           }
+
+          this.div.style.top = top - step + "px";
+
           break;
-
-        case 39: //arrow right
-
-          if (stop === false) {
-            this.div.style.left = `${oldLeft + 20}px`;
-            // console.log("arrow right ", this.div.style.left)
+        case "ArrowDown":
+          event.preventDefault();
+          this.div.style.top = top + step + "px";
+          break;
+        case "ArrowLeft":
+          event.preventDefault();
+          if (this.div.getBoundingClientRect().left - step < gameContainer.getBoundingClientRect().left) {
+            return;
           }
-          break;
 
-        case 38: //arrow up
-          if (stop === false) {
-            this.div.style.top = `${oldTop - 20}px`;
-            // console.log("arrow up ", this.div.style.top) 
-          }
+          this.div.style.left = left - step + "px";
           break;
-
-        case 37: //arrow left
-          if (stop === false) {
-            this.div.style.left = `${oldLeft - 20}px`;
-            // console.log("arrow right ", this.div.style.left)
-          }
+        case "ArrowRight":
+          event.preventDefault();
+          this.div.style.left = left + step + "px";
           break;
-
       }
-
     })
   }
 
-  // afisarea div-ului
+
   static display() {
     const div = document.createElement('div');
     const {
@@ -64,16 +60,5 @@ class Player {
     document.body.appendChild(div);
 
     return div;
-  }
-
-  playerIsOutsideOfContainer() {
-    const outsideHeight = parseInt(this.div.style.top);
-    const outsideWidth = parseInt(this.div.style.left);
-
-    if (outsideHeight === 10 || outsideHeight === 590 || outsideWidth === 10 || outsideWidth === 590) {
-      return true;
-    } else {
-      return false;
-    }
   }
 }
