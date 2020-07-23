@@ -23,21 +23,32 @@ class Player {
           this.div.style.top = top - step + "px";
 
           break;
+
         case "ArrowDown":
           event.preventDefault();
+          if (this.div.getBoundingClientRect().top + step > 400) {
+            return;
+          }
+
           this.div.style.top = top + step + "px";
+
           break;
+
         case "ArrowLeft":
           event.preventDefault();
           if (this.div.getBoundingClientRect().left - step < gameContainer.getBoundingClientRect().left) {
             return;
           }
-
           this.div.style.left = left - step + "px";
           break;
+
         case "ArrowRight":
           event.preventDefault();
+          if (this.div.getBoundingClientRect().left + step > 400) {
+            return
+          }
           this.div.style.left = left + step + "px";
+
           break;
       }
     })

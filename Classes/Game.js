@@ -9,8 +9,8 @@ class Game {
         const {
             style
         } = gameContainer;
-        style.width = "600px";
-        style.height = "600px";
+        style.width = "400px";
+        style.height = "400px";
         style.backgroundColor = "#367536";
         style.border = "5px solid black";
         document.body.appendChild(gameContainer);
